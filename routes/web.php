@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProdutosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste/{algo?}', function($algo = null){
+Route::get('/Produtos', [ProdutosController::class, 'index']);
+
+
+
+
+/*
+Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
+
+, function($algo = null){
     return "Tua mãe é minha - {$algo} 😁";
 });
-
-Route::get('/teste-view/{param?}', function($param = null){
+ a ? deixa ter ou nao algo,  deixa opcional;
+ Route::get('/teste-view/{param?}', function($param = null){
     return view('teste-view', [
-      
+
         'valor_da_controller' => $param,
     ]);
-});
+*/

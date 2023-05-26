@@ -11,7 +11,11 @@ class ProdutosController extends Controller
     }
 
     public function add() {
+        return view('Produtos.add');
+    }
 
+    public function addSave(Request $form) {
+        dd($form);
     }
 
     public function view(){

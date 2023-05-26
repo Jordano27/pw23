@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/Produtos', [ProdutosController::class, 'index']);
+Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos');
 
-
+Route::get('/produtos/add', [ProdutosController::class, 'add'])->name('produtos.add');
 
 
 /*

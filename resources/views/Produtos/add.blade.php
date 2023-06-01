@@ -3,9 +3,16 @@
 @section('title', 'Produtos - Adicionar')
 
 @section('content')
+
     <h2>Adicione seu Produto</h2>
+@if ($errors)
+    @foreach ($errors->all() as $err)
+    {{ $err }}<br>
+    @endforeach
+@endif
 
     <form action="{{ route('produtos.add') }}" method="post">
+        @csrf
         <input type="text" name="name" id="" placeholder="Nome do Produto">
         <br>
         <input type="number" name="price" id="" step="0.01" placeholder="Preço">

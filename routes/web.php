@@ -22,6 +22,7 @@ Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos');
 
 Route::get('/produtos/add', [ProdutosController::class, 'add'])->name('produtos.add');
 
+Route::post('/produtos/add', [ProdutosController::class, 'addsave'])->name('produtos.addsave');
 
 /*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};

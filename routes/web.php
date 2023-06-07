@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos');
 
@@ -27,7 +27,12 @@ Route::post('/produtos/add', [ProdutosController::class, 'addsave'])->name('prod
 Route::get('/produtos/{produto}', [ProdutosController::class, 'view'])->name('produtos.view');
 
 Route::get('/produtos/edit/{produto}', [ProdutosController::class, 'edit'])->name('produtos.edit');
-/*
+
+Route::post('/produtos/edit/{produto}', [ProdutosController::class, 'editSave'])->name('produtos.editSave');
+
+Route::get('/produtos/delete/{produto}', [ProdutosController::class, 'delete'])->name('produtos.delete');
+
+Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');/*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
 
 , function($algo = null){
@@ -40,3 +45,4 @@ Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a vari
         'valor_da_controller' => $param,
     ]);
 */
+

@@ -12,8 +12,8 @@
         <!-- Menu -->
         <div>
             <ul>
-                <li><a href="{{ route('home')}}">HOME</a></li>
-                <li><a href="{{ route('produtos')}}">Produtos</a></li>
+                <li class="links_home"><a href="{{ route('home')}}">HOME</a></li>
+                <li class="links_home"><a href="{{ route('produtos')}}">Produtos</a></li>
             </ul>
         </div>
 

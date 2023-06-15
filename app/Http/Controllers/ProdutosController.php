@@ -13,6 +13,8 @@ class ProdutosController extends Controller
         $prods = Produto::all();
 
 
+        $prods = Produto::withTrashed()->get();
+
         return view('Produtos.index', [
             'prods' => $prods,
         ]);
@@ -63,11 +65,17 @@ class ProdutosController extends Controller
         ]);
     }
 
-    public function delete(Produto $produtos){
+    public function delete(Produto $produto){
+        return view('Produtos.delete', [
+            'prod' => $produto
 
+        ]);
     }
 
-    public function deleteForReal(Produto $produtos){
-        
+    public function deleteForReal(Produto $produto){
+        $produto->delete();
+        return redirect()->route('produtos')->with('sucesso', 'Produto apagado com sucesso');
     }
 }
+
+

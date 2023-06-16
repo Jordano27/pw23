@@ -14,6 +14,6 @@
         @csrf
         @method('delete')
 
-        <input type="submit" value="Excluir">
+        <input type="submit" value="Excluir"> 
     </form>
 @endsection

@@ -11,7 +11,18 @@
 @endif
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="style.css">
-<table border="1" style="width: 50%; text-align: center; margin-left: 20%; margin-top: 10%;"  class="table table-dark table-striped"  >
+
+    <form action="{{ route('produtos')}}" method="post" style="display: flex; justify-content:center; margin-top: 10%; margin-right: 45%;">
+            @csrf
+        <input type="text" name="busca" id="">
+        <select name="ord" id="">
+            <option value="asc">Crescente</option>
+            <option value="desc">Decrescente</option>
+        </select>
+          <input type="submit" value="Buscar">
+    </form>
+
+<table border="1" style="width: 50%; text-align: center; margin-left: 20%; margin-top: 2%;"  class="table table-dark table-striped"  >
     <tr>
         <th>Nome</th>
         <th>Preço</th>

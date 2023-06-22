@@ -9,12 +9,23 @@ use Illuminate\Validation\Rule;
 
 class ProdutosController extends Controller
 {
-    public function index() {
-        $prods = Produto::all();
+    public function index(Request $request) {
+
+        if($request->isMethod('POST')){
+            $busca = $request->busca;
+//ordenação dos resultados(asc e desc)
+            $ord = $request-> ord == 'asc' ? 'asc' : 'desc';
+            $prods = Produto::Where('name', 'LIKE',"%{$busca}%")->orderBy('name', $ord)->get();
+        } else{
+              $prods = Produto::all();
+        }
 
 
-        $prods = Produto::withTrashed()->get();
+        //Busca tudo incluindo apagados
+       // $prods = Produto::withTrashed()->get();
 
+        //busca apenas os apagados
+        //$prods = Produto::onlyTrashed()->get();
         return view('Produtos.index', [
             'prods' => $prods,
         ]);

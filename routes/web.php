@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos');
 
+Route::post('/Produtos', [ProdutosController::class, 'index']);
+
 Route::get('/produtos/add', [ProdutosController::class, 'add'])->name('produtos.add');
 
 Route::post('/produtos/add', [ProdutosController::class, 'addsave'])->name('produtos.addsave');
@@ -32,7 +34,10 @@ Route::post('/produtos/edit/{produto}', [ProdutosController::class, 'editSave'])
 
 Route::get('/produtos/delete/{produto}', [ProdutosController::class, 'delete'])->name('produtos.delete');
 
-Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');/*
+Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');
+
+
+/*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
 
 , function($algo = null){

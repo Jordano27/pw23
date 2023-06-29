@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ProdutosController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,23 @@ Route::get('/produtos/delete/{produto}', [ProdutosController::class, 'delete'])-
 
 Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');
 
+Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
+
+Route::post('/usuarios', [UsuariosController::class, 'index']);
+
+Route::get('/usuarios/add', [UsuariosController::class, 'add'])->name('usuarios.add');
+
+Route::post('/usuarios/add', [UsuariosController::class, 'addsave'])->name('usuarios.addsave');
+
+Route::get('/usuarios/{usuario}', [UsuariosController::class, 'view'])->name('usuarios.view');
+
+Route::get('/usuarios/edit/{usuario}', [UsuariosController::class, 'edit'])->name('usuarios.edit');
+
+Route::post('/usuarios/edit/{usuario}', [UsuariosController::class, 'editSave'])->name('usuarios.editSave');
+
+Route::get('/usuarios/delete/{usuario}', [UsuariosController::class, 'delete'])->name('usuarios.delete');
+
+Route::delete('/usuarios/delete/{usuario}', [UsuariosController::class, 'deleteForReal'])->name('usuarios.deleteForReal');
 
 /*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
@@ -50,4 +68,5 @@ Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a vari
         'valor_da_controller' => $param,
     ]);
 */
+
 

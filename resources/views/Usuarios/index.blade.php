@@ -35,9 +35,9 @@
         <tr>
             <td><a href="{{ route('usuarios.view', $user->id) }}" style="text-decoration: none;">{{ $user->name }}</a></td>
             <td><a href="{{ route('usuarios.view', $user->id) }}" style="text-decoration: none;">{{ $user->email }}</a></td>
-            <td><a href="{{ route('usuarios.view', $user->id) }}" style="text-decoration: none;">{{ $user->password}}</a></td>
-            <td ><a href="{{ route('produtos.edit', $prod->id) }}" style="text-decoration: none;">✏️</a></td>
-            <td ><a href="{{ route('produtos.delete', $prod->id) }}" style="text-decoration: none;">🗑️</a></td>
+            <td><a href="{{ route('usuarios.view', $user->id) }}" style="text-decoration: none;">🔐</a></td>
+            <td ><a href="{{ route('usuarios.edit', $user->id) }}" style="text-decoration: none;">✏️</a></td>
+            <td ><a href="{{ route('usuarios.delete', $user->id) }}" style="text-decoration: none;">🗑️</a></td>
         </tr>
     @endforeach
 
@@ -46,5 +46,5 @@
 
 
 <br>
-    <a style="margin-left:20%; " class="btn btn-outline-info" href="{{ route('produtos.add') }}">Adiconar Produto</a>
+    <a style="margin-left:20%; " class="btn btn-outline-info" href="{{ route('usuarios.add') }}">Adiconar Usuario</a>
 @endsection

@@ -18,9 +18,9 @@
         @csrf
         <input type="text" name="name" class="form-control form-control-lg" placeholder="Nome do Usuario" value="{{ old('name', $user->name ?? '')}}"  style=" width: 50%; ">
         <br>
-        <input type="number" name="email"class="form-control" id="validationCustom01" step="0.01" placeholder="Email" value="{{ old('price', $user->email ?? '')}}" style=" width: 50%;  ">
+        <input type="email" name="email"class="form-control" id="validationCustom01" step="0.01" placeholder="Email" value="{{ old('email', $user->email ?? '')}}" style=" width: 50%;  ">
         <br>
-        <input type="number" name="password"  class="form-control" id="validationCustom02" placeholder="Quantidade" min="0" value="{{ old('quantily', $user->pasword ?? '')}}" style=" width: 50%;   ">
+        <input type="password" name="password"  class="form-control" id="validationCustom02" placeholder="senha" min="0" value="{{ old('password', $user->pasword ?? '')}}" style=" width: 50%;   ">
        <br>
         <input type="submit" value="Gravar" style="margin-top: 1%; width: 10%;  height: 10%;" class="btn btn-outline-info">
     </form>

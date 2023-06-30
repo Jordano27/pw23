@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos');
+Route::get('/Produtos', [ProdutosController::class, 'index'])->name('produtos')->middleware('auth');
 
 Route::post('/Produtos', [ProdutosController::class, 'index']);
 
@@ -37,7 +37,7 @@ Route::get('/produtos/delete/{produto}', [ProdutosController::class, 'delete'])-
 
 Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');
 
-Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
+Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios')->middleware('auth');
 
 Route::post('/usuarios', [UsuariosController::class, 'index']);
 
@@ -55,6 +55,11 @@ Route::get('/usuarios/delete/{usuario}', [UsuariosController::class, 'delete'])-
 
 Route::delete('/usuarios/delete/{usuario}', [UsuariosController::class, 'deleteForReal'])->name('usuarios.deleteForReal');
 
+Route::get('login', [UsuariosController::class, 'login'])->name('login');
+
+Route::post('login', [UsuariosController::class, 'login'])->name('login');
+
+Route::get('logout', [UsuariosController::class, 'logout'])->name('logout');
 /*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
 

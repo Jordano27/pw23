@@ -10,11 +10,20 @@
 <body>
 
         <h1>Site Lindão</h1>
+        <div>
+            @if (Auth::user())
+                Olá {{ Auth::user()->name }}
+                <a href="{{ route('logout') }}">Sair</a>
+            @else
+                <a href="{{ route('login') }}">Fazer Login</a>
+            @endif
+        </div>
         <!-- Menu -->
         <div>
             <ul>
                 <li class="links_home"><a href="{{ route('home')}}">HOME</a></li>
                 <li class="links_home"><a href="{{ route('produtos')}}">Produtos</a></li>
+                <li class="links_home"><a href="{{ route('usuarios')}}">Usuarios</a></li>
             </ul>
         </div>
 

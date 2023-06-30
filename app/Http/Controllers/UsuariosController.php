@@ -3,88 +3,113 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use app\Models\Usuarios;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
 
 class UsuariosController extends Controller
 {
-    public function index(Request $request) {
-
-        if($request->isMethod('POST')){
+    public function index(Request $request)
+    {
+        if ($request->isMethod('POST')) {
             $busca = $request->busca;
-//ordenação dos resultados(asc e desc)
-            $ord = $request-> ord == 'asc' ? 'asc' : 'desc';
-            $users = Usuario::Where('name', 'LIKE',"%{$busca}%")->orderBy('name', $ord)->paginate(15);
-        } else{
-              $users = Usuario::paginate();
+            // Ordenação dos resultados (asc e desc)
+            $ord = $request->ord == 'asc' ? 'asc' : 'desc';
+            $users = Usuario::where('name', 'LIKE', "%{$busca}%")->orderBy('name', $ord)->paginate(15);
+        } else {
+            $users = Usuario::paginate(15);
         }
 
-
-        //Busca tudo incluindo apagados
-       // $prods = Produto::withTrashed()->get();
-
-        //busca apenas os apagados
-        //$prods = Produto::onlyTrashed()->get();
         return view('Usuarios.index', [
             'users' => $users,
         ]);
     }
 
-    public function add() {
+    public function add()
+    {
         return view('Usuarios.add');
     }
 
-    public function addSave(Request $form) {
-        $dados = $form->validate([
+    public function addSave(Request $request)
+    {
+        $dados = $request->validate([
             'name' => 'required|min:5',
-            'email' => 'required|gte:0',
-            'password' => 'required|gte:0',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
-        Produto::create($dados);
+        $dados['password'] = Hash::make($dados['password']);
+        Usuario::create($dados);
         return redirect()->route('usuarios');
     }
 
-    public function edit(Usuario $usuario){
-        //Usamos a mesma view do 'add'
-        return view('Usuarios.a', [
+    public function edit(Usuario $usuario)
+    {
+        return view('Usuarios.add', [
             'user' => $usuario,
         ]);
     }
 
-    public function editSave(Request $form, Usuario $usuario){
-        $dados = $form->validate([
+
+    public function editSave(Request $request, Usuario $usuario)
+    {
+        $dados = $request->validate([
             'name' => [
                 'required',
-                 Rule::unique('usuarios')->ignore($usuario->id),
+                Rule::unique('usuarios')->ignore($usuario->id),
                 'min:3',
             ],
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
+        $dados['password'] = Hash::make($dados['password']);
         $usuario->fill($dados);
         $usuario->save();
 
-        return redirect()->route('usuarios')->with('sucesso', 'Usuario inserido com sucesso');
+        return redirect()->route('usuarios')->with('sucesso', 'Usuário atualizado com sucesso');
     }
 
-    public function view(Usuario $usuario){
+    public function view(Usuario $usuario)
+    {
         return view('Usuarios.view', [
             'user' => $usuario,
         ]);
     }
 
-    public function delete(Usuario $usuario){
-        return view('Usuarioss.delete', [
-            'user' => $usuario
-
+    public function delete(Usuario $usuario)
+    {
+        return view('Usuarios.delete', [
+            'user' => $usuario,
         ]);
     }
 
-    public function deleteForReal(Usuario $usuario){
-        $produto->delete();
-        return redirect()->route('usuarios')->with('sucesso', 'Usuario apagado com sucesso');
+    public function deleteForReal(Usuario $usuario)
+    {
+        $usuario->delete();
+        return redirect()->route('usuarios')->with('sucesso', 'Usuário apagado com sucesso');
+    }
+
+    public function login(Request $request){
+        if ($request->isMethod('POST')){
+            $data = $request->validate([
+                'email'=> 'required',
+                'password' => 'required',
+            ]);
+            if(Auth::attempt($data)){
+                return redirect()->route('home');
+            } else {
+                return redirect()->route('login')->with('erro', 'tente Novamente');
+            }
+        }
+        return view('usuarios.login');
+    }
+
+    public function logout() {
+        Auth::logout();
+
+        return redirect()->route('home');
     }
 }
+

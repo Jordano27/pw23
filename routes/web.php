@@ -37,7 +37,7 @@ Route::get('/produtos/delete/{produto}', [ProdutosController::class, 'delete'])-
 
 Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'deleteForReal'])->name('produtos.deleteForReal');
 
-Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios')->middleware('auth');
+Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios');
 
 Route::post('/usuarios', [UsuariosController::class, 'index']);
 
@@ -60,6 +60,16 @@ Route::get('login', [UsuariosController::class, 'login'])->name('login');
 Route::post('login', [UsuariosController::class, 'login'])->name('login');
 
 Route::get('logout', [UsuariosController::class, 'logout'])->name('logout');
+
+Route::get('/email/verify', function(){
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request){
+   $request->fulfill();
+    return redirect()->route('home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 /*
 Route::get('/teste/{algo?}' = caminho da rota, coma varialvel, nesse caso a variavel é {algo?};
 

@@ -31,6 +31,7 @@ class UsuariosController extends Controller
         return view('Usuarios.add');
     }
 
+
     public function addSave(Request $request)
     {
         $dados = $request->validate([
@@ -40,10 +41,14 @@ class UsuariosController extends Controller
         ]);
 
         $dados['password'] = Hash::make($dados['password']);
-        Usuario::create($dados);
+
+        $user = Usuario::create($dados);
+
+        event(new Registered($user));
+
         return redirect()->route('usuarios');
     }
-
+    
     public function edit(Usuario $usuario)
     {
         return view('Usuarios.add', [
@@ -98,7 +103,7 @@ class UsuariosController extends Controller
                 'password' => 'required',
             ]);
             if(Auth::attempt($data)){
-                return redirect()->route('home');
+                return redirect()->intended('home');
             } else {
                 return redirect()->route('login')->with('erro', 'tente Novamente');
             }
